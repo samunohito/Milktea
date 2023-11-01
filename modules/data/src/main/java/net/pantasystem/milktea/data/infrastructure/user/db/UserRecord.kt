@@ -581,6 +581,14 @@ data class BadgeRoleRecord(
                 iconUrl == model.iconUri &&
                 displayOrder == model.displayOrder
     }
+
+    fun toUserBadgeRoleModel(): User.BadgeRole {
+        return User.BadgeRole(
+            name = name,
+            iconUri = iconUrl,
+            displayOrder = displayOrder,
+        )
+    }
 }
 
 interface HasUserModel {
@@ -840,6 +848,9 @@ data class UserRelated(
             },
             instance = instanceInfo,
             avatarBlurhash = user.avatarBlurhash,
+            badgeRoles = badgeRoles.map {
+                it.toUserBadgeRoleModel()
+            }
         )
     }
 }
